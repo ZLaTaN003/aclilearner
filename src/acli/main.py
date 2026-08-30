@@ -1,5 +1,9 @@
 import subprocess
 from argparse import ArgumentParser
+from acli.layout import LayoutInterface
+from rich.prompt import IntPrompt
+from rich.text import Text
+from acli.utils.summary import Summary
 
 COMMAND_CATEGORIES = {
     "File and Directory": [
@@ -56,46 +60,57 @@ category_shortcut_map = {
 }
 
 parser = ArgumentParser(
-    prog="acli", description="Linux Command Categorised", allow_abbrev=False
+    prog="acli",
+    description="Linux Commands Easy to Find",
+    allow_abbrev=False,
+)
+category_string = ",".join(category for category in category_shortcut_map.values())
+parser.add_argument(
+    "category",
+    choices=category_shortcut_map,
+    help=f"Categories are {category_string}",
 )
 
-for category in category_shortcut_map:
-    parser.add_argument(
-        f"--{category}",
-        action="store_const",
-        const=category_shortcut_map[category],
-        help=f"{category_shortcut_map[category]} commands are selected",
-    )
+args = parser.parse_args()
+if args.category:
+    chosen_category = category_shortcut_map[args.category]
 
-
-chosen_category = next(
-    category
-    for short, category in category_shortcut_map.items()
-    if getattr(parser.parse_args(), short)
-)
-print(chosen_category, "this")
+layout = LayoutInterface()
 
 
 def main() -> None:
     while True:
-        print("Welcome to acli")
         commands = COMMAND_CATEGORIES[chosen_category]
-        display_command_options(commands)
+        populate_command_options(commands)
+        layout.print()
 
         try:
-            chosen_command_index = int(
-                input("Choose the command, Give the index number \n")
+            chosen_command_index = IntPrompt.ask(
+                "Choose the command, Give the index number 0 to exit"
             )
 
-            print("you chose", chosen_command_index)
+            if chosen_command_index == 0:
+                break
+
+            chosen_command = commands[chosen_command_index - 1]
+            summary = Summary(chosen_command).get_help_text()
+
+            layout.split_layout()
+
+            layout.update_right_layout(summary)
 
         except ValueError:
             print("The category/command index must be an integer")
 
 
-def display_command_options(commands) -> None:
+def populate_command_options(commands: list[str]) -> None:
+    content = ""
     for index, command in enumerate(commands):
-        print(f"{index+1}   {command}")
+        content += f"{index+1}   {command} \n"
+
+    body = Text(content)
+    heading = Text("Choose the command  \n")
+    layout.update_main_layout(heading, body)
 
 
 if __name__ == "__main__":
