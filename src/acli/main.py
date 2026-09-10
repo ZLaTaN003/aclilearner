@@ -4,6 +4,7 @@ from acli.layout import LayoutInterface
 from rich.prompt import IntPrompt
 from rich.text import Text
 from acli.utils.summary import Summary
+from acli.utils.download_organizer import DownloadOrganizer
 
 COMMAND_CATEGORIES = {
     "File and Directory": [
@@ -57,6 +58,7 @@ category_shortcut_map = {
     "pm": "Process and System Monitoring",
     "nt": "Networking",
     "ot": "Other Utils",
+    "dorg": "Download Organizer",
 }
 
 parser = ArgumentParser(
@@ -80,7 +82,12 @@ layout = LayoutInterface()
 
 def main() -> None:
     while True:
-        commands = COMMAND_CATEGORIES[chosen_category]
+        commands = COMMAND_CATEGORIES.get(chosen_category)
+        if not commands:
+            organizer = DownloadOrganizer()
+            organizer.run()
+            break
+
         populate_command_options(commands)
         layout.print()
 
