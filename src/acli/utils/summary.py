@@ -1,22 +1,23 @@
 from rich.panel import Text
-import subprocess
+from pathlib import Path
 
 
 class Summary:
-
     def __init__(self, command: str) -> None:
+        self.tldr_path = Path().home() / "Downloads"
+        self.command_data = {}
         self.command = command
-        self.help_text = self.get_help_text()
 
     def get_help_text(self) -> str:
-        result = subprocess.run(
-            [self.command, "--help"], capture_output=True, encoding="utf-8"
-        ).stdout
-        if not result:
-            result = subprocess.run(
-                ["man", self.command], capture_output=True, encoding="utf-8"
-            ).stdout
-        return result
+        return self.get_tldr_content()
 
     def __rich__(self) -> Text:
         return Text(self.help_text)
+
+    def get_tldr_content(self):
+        glob = self.tldr_path.rglob(f"{self.command}.md")
+        file = next(glob, None)
+        if not file:
+            return "Not Found"
+        content = file.read_text()
+        return content

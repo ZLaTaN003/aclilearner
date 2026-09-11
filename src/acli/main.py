@@ -1,10 +1,10 @@
-import subprocess
 from argparse import ArgumentParser
 from acli.layout import LayoutInterface
 from rich.prompt import IntPrompt
 from rich.text import Text
 from acli.utils.summary import Summary
 from acli.utils.download_organizer import DownloadOrganizer
+from rich.markdown import Markdown
 
 COMMAND_CATEGORIES = {
     "File and Directory": [
@@ -82,7 +82,7 @@ layout = LayoutInterface()
 
 def main() -> None:
     while True:
-        commands = COMMAND_CATEGORIES.get(chosen_category)
+        commands = sorted(COMMAND_CATEGORIES.get(chosen_category))
         if not commands:
             organizer = DownloadOrganizer()
             organizer.run()
@@ -104,7 +104,7 @@ def main() -> None:
 
             layout.split_layout()
 
-            layout.update_right_layout(summary)
+            layout.update_right_layout(Markdown(summary))
 
         except ValueError:
             print("The category/command index must be an integer")
@@ -113,7 +113,7 @@ def main() -> None:
 def populate_command_options(commands: list[str]) -> None:
     content = ""
     for index, command in enumerate(commands):
-        content += f"{index+1}   {command} \n"
+        content += f"{index+1} {command} \n"
 
     body = Text(content)
     heading = Text("Choose the command  \n")
