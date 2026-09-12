@@ -11,7 +11,6 @@ from acli.utils.summary import Summary
 def test_summary_exists():
     command = "ls"
     s = Summary(command).get_help_text()
-    print(s)
     assert s is not None
     assert command in s
 

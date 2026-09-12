@@ -31,6 +31,7 @@ COMMAND_CATEGORIES = {
     "Text Processing": ["awk", "grep", "wc", "sort"],
     "Process and System Monitoring": [
         "ps",
+        "exec",
         "htop",
         "free",
         "kill",

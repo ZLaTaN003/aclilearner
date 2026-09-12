@@ -6,6 +6,12 @@ The goal of this project was to learn package distribution.
 
 ## Installation
 
+aclilearner is available in pypi
+
+```bash
+   pip install aclilearner
+```
+
 Follow these steps to set up the project locally:
 
 1. **Clone the repository:**
@@ -35,5 +41,9 @@ Follow these steps to set up the project locally:
      python -m acli.main fd #h for help
    ```
 
+### Preview
 
-### Command TLDR from [tldr.inbrowser.app](https://tldr.inbrowser.app/)
+   ![demo](images/demo.gif)
+
+
+#### Command TLDR from [tldr.inbrowser.app](https://tldr.inbrowser.app/)

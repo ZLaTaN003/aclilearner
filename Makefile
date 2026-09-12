@@ -7,7 +7,7 @@ tools:
 	python -m pip install -e .
 
 test:	
-	python -m pytest
+	python -m pytest ./tests/
 
 dist: 
 	python -m build --sdist --wheel

@@ -1,4 +1,4 @@
-# exec
+# xec
 
 > Execute a command without creating a child process.
 > More information: <https://www.gnu.org/software/bash/manual/bash.html#index-exec>.
