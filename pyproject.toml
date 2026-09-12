@@ -1,0 +1,41 @@
+[project]
+name = "aclilearner"
+description = "A cli to learn cli and a download organizer"
+readme = "README.md"
+
+authors = [
+    {name = "Adithya krishna"}
+]
+
+dependencies = [
+    "rich>=15.0.0",
+]
+
+license = "Apache-2.0"
+
+requires-python = ">= 3.11"
+
+dynamic = ["version"]
+
+[project.urls]
+"Source code" = "https://github.com/ZLaTaN003/aclilearner"
+"Issue tracker" = "https://github.com/ZLaTaN003/aclilearner/issues"
+
+[tool.setuptools.dynamic]
+version.attr = "acli.__version__"
+
+[build-system]
+requires = ["setuptools>=80"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.package-data]
+"acli.tldr_commands.common" = ["*.md"]
+"acli.tldr_commands.linux" = ["*.md"]
+
+
+[dependency-groups]
+test = [
+    "pytest>=9.1.1",
+]
+
+
