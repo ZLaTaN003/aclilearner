@@ -16,7 +16,7 @@ Follow these steps to set up the project locally:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/ZLaTaN003/aclilearner.git
+git clone [https://github.com/ZLaTaN003/aclilearner.git](https://github.com/ZLaTaN003/aclilearner.git)
    ```
 
 2. **Set up a virtual environment (recommended):**
@@ -27,7 +27,10 @@ Follow these steps to set up the project locally:
 
    # On Windows
    python -m venv venv
-   .\venv\Scripts\activate
+   ```cmd
+   venv\Scripts\activate
+   ```
+   
    ```
 
 3. **Install the dependencies:**
@@ -38,12 +41,12 @@ Follow these steps to set up the project locally:
 4. **Run the program:**
    ```bash
      cd src/
-     python -m acli.main fd #h for help
+     python -m acli.main fd #-h for help
    ```
 
 ### Preview
 
-   ![demo](images/demo.gif)
+   ![demo](https://raw.githubusercontent.com/ZLaTaN003/aclilearner/4f7592f0e9c07e103869dd179da16854c98a3a2d/images/demo.gif)
 
 
 #### Command TLDR from [tldr.inbrowser.app](https://tldr.inbrowser.app/)
